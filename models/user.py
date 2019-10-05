@@ -1,4 +1,3 @@
-from flask import jsonify
 from sql_alchemy import db
 
 class UserModel(db.Model):
@@ -15,9 +14,29 @@ class UserModel(db.Model):
     dt_update = db.Column(db.DateTime())
     active = db.Column(db.Boolean())
 
-def __init__(self, name, email, rg, cpf, birthdate):
+    def __init__(self, name, email, password, rg, cpf, birthdate):
         self.name = name
         self.email = email
+        self.password = password
         self.rg = rg
         self.cpf = cpf
         self.birthdate = birthdate
+    
+    def to_json(self):
+        return {
+            "user_id": self.user_id,
+	        "name": self.name,
+	        "email": self.email,
+	        "password": self.password,
+	        "rg": self.rg,
+	        "cpf": self.cpf,
+	        "birthdate": str(self.birthdate),
+            "dt_create": str(self.dt_create),
+            "dt_update": str(self.dt_update),
+            "active": self.active
+        }
+    
+    def Create(self):
+        print(self)
+        db.session.add(self)
+        db.session.commit()    
