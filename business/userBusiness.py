@@ -12,7 +12,7 @@ class UserBusiness():
         user_model = UserModel(**user)
         user_model.dt_create = datetime.datetime.now()
         user_model.dt_update = datetime.datetime.now()
-        user_model.active = 0
+        user_model.active = True
         print(user_model)
         user_model.Create()
         return user_model

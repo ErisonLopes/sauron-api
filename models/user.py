@@ -1,9 +1,9 @@
 from sql_alchemy import db
-
+from models.image import ImageModel
 class UserModel(db.Model):
     __tablename__ = "user"
 
-    user_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80))
     email = db.Column(db.String(120))
     password = db.Column(db.String(20))
@@ -13,6 +13,8 @@ class UserModel(db.Model):
     dt_create = db.Column(db.DateTime())
     dt_update = db.Column(db.DateTime())
     active = db.Column(db.Boolean())
+
+    image = db.relationship("ImageModel", back_populates="user")
 
     def __init__(self, name, email, password, rg, cpf, birthdate):
         self.name = name
@@ -24,7 +26,7 @@ class UserModel(db.Model):
     
     def to_json(self):
         return {
-            "user_id": self.user_id,
+            "id": self.id,
 	        "name": self.name,
 	        "email": self.email,
 	        "password": self.password,
