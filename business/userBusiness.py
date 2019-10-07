@@ -1,7 +1,6 @@
 import datetime
 from models.user import UserModel
 
-
 class UserBusiness():
 
     def get_all_users():
@@ -13,6 +12,5 @@ class UserBusiness():
         user_model.dt_create = datetime.datetime.now()
         user_model.dt_update = datetime.datetime.now()
         user_model.active = True
-        print(user_model)
         user_model.Create()
         return user_model

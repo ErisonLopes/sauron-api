@@ -3,6 +3,7 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from sql_alchemy import db
 from controllers.userController import UserController
+from controllers.imageController import ImageController
 import os
 
 app = Flask(__name__)
@@ -17,6 +18,8 @@ def create_database():
     db.create_all()
 
 api.add_resource(UserController, '/user')
+api.add_resource(ImageController, '/image')
+api.add_resource(ImageController, '/image/<int:id_image>', endpoint='get_by_id')
 
 if __name__ == '__main__':
     db.init_app(app)

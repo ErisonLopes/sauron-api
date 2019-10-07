@@ -11,8 +11,9 @@ class ImageModel(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     user = db.relationship("UserModel", back_populates="image", uselist=False)
     
-    def __init__(self, imageBase64):
+    def __init__(self, imageBase64, user_id):
         self.imageBase64 = imageBase64
+        self.user_id = user_id
 
     def to_json(self):
         return {
@@ -23,5 +24,10 @@ class ImageModel(db.Model):
         }
     
     def Create(self):
+        db.session.add(self)
+        db.session.commit()
+    
+    def Delete(self):
+        self.active = False
         db.session.add(self)
         db.session.commit()
