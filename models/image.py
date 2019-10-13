@@ -20,7 +20,8 @@ class ImageModel(db.Model):
             "id": self.id,
             "imageBase64": self.imageBase64,
             "dt_create": str(self.dt_create),
-            "active": self.active
+            "active": self.active,
+            "user_id": self.user_id
         }
     
     def Create(self):

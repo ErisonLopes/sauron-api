@@ -2,7 +2,7 @@ from flask import Flask
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from sql_alchemy import db
-from controllers.userController import UserController
+from controllers.userController import UserController, UserImageController
 from controllers.imageController import ImageController
 import os
 
@@ -18,6 +18,7 @@ def create_database():
     db.create_all()
 
 api.add_resource(UserController, '/user')
+api.add_resource(UserImageController, '/userImage')
 api.add_resource(ImageController, '/image')
 api.add_resource(ImageController, '/image/<int:id_image>', endpoint='get_by_id')
 

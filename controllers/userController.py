@@ -8,8 +8,8 @@ class UserController(Resource):
 
         if users:
             return users, 200
-        return {'message': 'Não foi encontrado nenhum usuário'}, 404
-    
+        return {'message': 'Não foi encontrado nenhum usuário'}, 404 
+
     def post(self):
         parameters = reqparse.RequestParser()
         parameters.add_argument('name', type=str, required=True, help="O campo 'nome' não pode ser deixado em branco")
@@ -27,4 +27,15 @@ class UserController(Resource):
             return {'message': 'Usuário criado com sucesso'}, 201
         return {'message': 'Não foi possível criar o usuário'}, 400
 
+class UserImageController(Resource):
 
+    def get(self):
+        parameters = reqparse.RequestParser()
+        parameters.add_argument('image_base_64', type=str, required=True, help="O campo 'image_base_64' não pode ser deixado em branco")
+        data = parameters.parse_args()
+
+        user_image = UserBusiness.find_by_image(data.image_base_64)
+
+        if user_image:
+            return user_image, 200
+        return {'message': 'Não foi encontrado o usuário em questão'}, 404
